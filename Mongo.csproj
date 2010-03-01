@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9D735EF9-E082-4646-A0C5-E794074BAA8B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CSMongo</RootNamespace>
+    <AssemblyName>CSMongo</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Bson\BsonAnonymousTypeParser.cs" />
+    <Compile Include="Exceptions\MongoServerException.cs" />
+    <Compile Include="Extensions\Queries\MongoQueryExtensions.cs" />
+    <Compile Include="MongoAdminDatabase.cs" />
+    <Compile Include="Bson\BsonCollection.cs" />
+    <Compile Include="Bson\BsonDocument.cs" />
+    <Compile Include="Bson\BsonFieldDetail.cs" />
+    <Compile Include="Bson\BsonObject.cs" />
+    <Compile Include="Bson\BsonOrderedDocument.cs" />
+    <Compile Include="Bson\BsonTranslator.cs" />
+    <Compile Include="Bson\BsonMongoDictionary.cs" />
+    <Compile Include="Commands\MongoDatabaseCommands.cs" />
+    <Compile Include="DataTypes\LargeEnumeratedType.cs" />
+    <Compile Include="DataTypes\SmallEnumeratedType.cs" />
+    <Compile Include="DataTypes\MongoArrayType.cs" />
+    <Compile Include="DataTypes\MongoBinaryType.cs" />
+    <Compile Include="DataTypes\MongoBooleanType.cs" />
+    <Compile Include="DataTypes\MongoDataType.cs" />
+    <Compile Include="Mongo.cs" />
+    <Compile Include="MongoCursor.cs" />
+    <Compile Include="Bson\BsonMongoFieldReference.cs" />
+    <Compile Include="DataTypes\MongoDate.cs" />
+    <Compile Include="DataTypes\MongoDocumentType.cs" />
+    <Compile Include="DataTypes\MongoInt32Type.cs" />
+    <Compile Include="DataTypes\MongoInt64Type.cs" />
+    <Compile Include="DataTypes\MongoNullType.cs" />
+    <Compile Include="DataTypes\MongoNumberType.cs" />
+    <Compile Include="DataTypes\MongoObjectType.cs" />
+    <Compile Include="DataTypes\MongoOidType.cs" />
+    <Compile Include="DataTypes\MongoStringType.cs" />
+    <Compile Include="Exceptions\LameException.cs" />
+    <Compile Include="Extensions\EnumerationExtensions.cs" />
+    <Compile Include="Helpers\Helpers.cs" />
+    <Compile Include="MongoCollection.cs" />
+    <Compile Include="MongoConnection.cs" />
+    <Compile Include="MongoConnectionString.cs" />
+    <Compile Include="MongoDatabase.cs" />
+    <Compile Include="MongoDocument.cs" />
+    <Compile Include="MongoOid.cs" />
+    <Compile Include="Query\MongoQuery.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Query\MongoQueryBase.cs" />
+    <Compile Include="Requests\CollectionRequestBase.cs" />
+    <Compile Include="Requests\CommandRequest.cs" />
+    <Compile Include="Requests\GetMoreRequest.cs" />
+    <Compile Include="Requests\KillCursorsRequest.cs" />
+    <Compile Include="Requests\ServerSideCodeRequestBase.cs" />
+    <Compile Include="Requests\DeleteRequest.cs" />
+    <Compile Include="Requests\InsertRequest.cs" />
+    <Compile Include="Requests\MessageRequest.cs" />
+    <Compile Include="Requests\QueryRequest.cs" />
+    <Compile Include="Requests\RequestBase.cs" />
+    <Compile Include="IO\DynamicStream.cs" />
+    <Compile Include="Requests\UpdateRequest.cs" />
+    <Compile Include="Results\AssertInfoResult.cs" />
+    <Compile Include="Results\BuildInfoResult.cs" />
+    <Compile Include="Results\CollectionCountResult.cs" />
+    <Compile Include="Results\CollectionStatusResult.cs" />
+    <Compile Include="Results\DatabaseDetailResult.cs" />
+    <Compile Include="Results\DeleteCollectionIndexResult.cs" />
+    <Compile Include="Results\DropCollectionResult.cs" />
+    <Compile Include="Results\ForceErrorResult.cs" />
+    <Compile Include="Results\FSyncResult.cs" />
+    <Compile Include="Results\CollectionDistinctResult.cs" />
+    <Compile Include="Results\GetLastErrorResult.cs" />
+    <Compile Include="Results\GetNonceResult.cs" />
+    <Compile Include="Results\GetOpTimeResult.cs" />
+    <Compile Include="Results\GetPreviousErrorResult.cs" />
+    <Compile Include="Results\ListDatabasesResult.cs" />
+    <Compile Include="Results\MethodResult.cs" />
+    <Compile Include="Responses\CommandResponse.cs" />
+    <Compile Include="Responses\QueryResponse.cs" />
+    <Compile Include="Responses\ResponseBase.cs" />
+    <Compile Include="Results\ProfileResult.cs" />
+    <Compile Include="Types\MongoBinaryTypes.cs" />
+    <Compile Include="Types\MongoDataTypes.cs" />
+    <Compile Include="Types\OpCodeTypes.cs" />
+    <Compile Include="Types\QueryOptionTypes.cs" />
+    <Compile Include="Types\UpdateOptionTypes.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
