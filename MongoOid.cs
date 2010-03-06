@@ -90,7 +90,7 @@ namespace CSMongo {
 
             //verify the length
             if (value.Length != 24) {
-                throw new LameException("Must be 24 characters... yeah...");
+                throw new ArgumentException("The provided ID was not in an expected format.", "value");
             }
 
             //parse every pair of bytes

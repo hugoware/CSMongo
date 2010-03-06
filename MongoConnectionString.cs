@@ -83,7 +83,7 @@ namespace CSMongo {
                 }
             }
             catch {
-                throw new LameException("Couldn't use the connection string.");
+                throw new InvalidMongoConnectionStringException();
             }
         }
 

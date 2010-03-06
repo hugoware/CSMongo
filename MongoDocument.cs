@@ -106,8 +106,8 @@ namespace CSMongo {
         public MongoOid Id {
             get { return this.Get<MongoOid>(Mongo.DocumentIdKey); }
             set {
-                if (value == null && !(value is MongoOid)) {
-                    throw new LameException("Must be an Oid type!");
+                if (value != null && !(value is MongoOid)) {
+                    throw new ArgumentException("You can only assign a MongoOid as the Id for a MongoDocument");
                 }
                 this.Set<MongoOid>(Mongo.DocumentIdKey, value); 
             }

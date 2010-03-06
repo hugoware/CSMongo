@@ -47,7 +47,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bson\BsonAnonymousTypeParser.cs" />
+    <Compile Include="Exceptions\ConnectionNotOpenedException.cs" />
+    <Compile Include="Exceptions\InvalidMongoConnectionStringException.cs" />
+    <Compile Include="Exceptions\MissingCollectionNameException.cs" />
+    <Compile Include="Exceptions\MongoTypeAlreadyRegisteredException.cs" />
+    <Compile Include="Exceptions\MongoDeserializationException.cs" />
+    <Compile Include="Exceptions\MongoSerializationException.cs" />
     <Compile Include="Exceptions\MongoServerException.cs" />
+    <Compile Include="Exceptions\NoCursorsFoundException.cs" />
     <Compile Include="Extensions\Queries\MongoQueryExtensions.cs" />
     <Compile Include="MongoAdminDatabase.cs" />
     <Compile Include="Bson\BsonCollection.cs" />
@@ -76,7 +83,6 @@
     <Compile Include="DataTypes\MongoObjectType.cs" />
     <Compile Include="DataTypes\MongoOidType.cs" />
     <Compile Include="DataTypes\MongoStringType.cs" />
-    <Compile Include="Exceptions\LameException.cs" />
     <Compile Include="Extensions\EnumerationExtensions.cs" />
     <Compile Include="Helpers\Helpers.cs" />
     <Compile Include="MongoCollection.cs" />

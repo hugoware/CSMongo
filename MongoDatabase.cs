@@ -431,7 +431,7 @@ namespace CSMongo {
             //verify the name is okay
             collection = (collection ?? string.Empty).Trim();
             if (string.IsNullOrEmpty(collection)) {
-                throw new LameException("A collection must have a name!");
+                throw new MissingCollectionNameException("collection");
             }
 
             //check if this is already loaded
@@ -492,7 +492,7 @@ namespace CSMongo {
 
             //if there aren't any cursors throw an error
             if (this._Cursors.Count == 0) {
-                throw new LameException("No cursors were found!");
+                throw new NoCursorsFoundException();
             }
 
             //return the most recently added item
@@ -527,7 +527,7 @@ namespace CSMongo {
             
             //make sure this is really a cursor
             if (cursor == null) {
-                throw new LameException("This isn't a cursor!");
+                throw new ArgumentNullException("cursor", "You must provide a cursor to use.");
             }
 
             //start with the cursor value
@@ -567,7 +567,7 @@ namespace CSMongo {
 
             //make sure something was found
             if (response == null) {
-                throw new LameException("Failed to get more records!");
+                throw new MongoServerException("GetMore expected a response but nothing was returned from the server.");
             }
 
             //return the found documents

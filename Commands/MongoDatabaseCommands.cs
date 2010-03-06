@@ -41,7 +41,7 @@ namespace CSMongo.Commands {
             //get the values required
             GetNonceResult nonce = MongoDatabaseCommands.GetNonce(database);
             if (!nonce.HasNonce) {
-                throw new LameException("Missing nonce from database!");
+                throw new MongoServerException(string.Format("Unable to get a nonce value from {0}.", database.Connection.Host));
             }
 
             //issue the actual command
@@ -375,8 +375,12 @@ namespace CSMongo.Commands {
 
             //send the command and check for the result
             CommandResponse response = database.SendRequest(request) as CommandResponse;
-            if (response == null) {
-                throw new LameException("Invoking command failed to return a response!");
+            if (response == null && expectResponse) {
+                throw new MongoServerException(
+                    string.Format(
+                        "The request to {0} expected a response but nothing was returned!", 
+                        database.Connection.Host
+                        ));
             }
 
             //return any documents that were found

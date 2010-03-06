@@ -158,7 +158,7 @@ namespace CSMongo {
 
                 //perform normal checking
                 if (!this.Connected) {
-                    throw new LameException("Connection isn't open yet!");
+                    throw new ConnectionNotOpenedException("Connection isn't open yet!");
                 }
 
                 //send the header first

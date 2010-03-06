@@ -478,12 +478,10 @@ namespace CSMongo.Bson {
                 }
             }
             //notify if they cannot serialize this object
-            catch (SerializationException ex) {
-                throw new LameException("Not allowed to seralize");
-            }
-            //notify for other unexpected errors
             catch (Exception ex) {
-                throw new LameException("Failed to serialize object");
+                throw new MongoSerializationException(
+                    value == null ? "null" : value.GetType().Name, 
+                    ex);
             }
 
         }
@@ -498,9 +496,9 @@ namespace CSMongo.Bson {
                     return formatter.Deserialize(input);
                 }
             }
-            //notify for other unexpected errors
+            //notify if they cannot serialize this object
             catch (Exception ex) {
-                throw new LameException("Failed to serialize object");
+                throw new MongoDeserializationException(ex);
             }
 
         }

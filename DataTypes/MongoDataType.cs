@@ -127,7 +127,7 @@ namespace CSMongo.DataTypes {
 
             //make sure this isn't already added
             if (MongoDataType.IsTypeRegistered<T>()) {
-                throw new LameException("This type is already in here");
+                throw new MongoTypeAlreadyRegisteredException(typeof(T));
             }
 
             //add the instance
