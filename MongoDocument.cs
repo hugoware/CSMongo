@@ -105,12 +105,30 @@ namespace CSMongo {
         /// The Oid for a document (if any)
         /// </summary>
         public MongoOid Id {
-            get { return this.Get<MongoOid>(Mongo.DocumentIdKey, new MongoOid()); }
+            get {
+
+                //if no id has been generated, do it now
+                MongoOid id = this.Get<MongoOid>(Mongo.DocumentIdKey, null);
+                if (id == null) {
+                    id = new MongoOid();
+                    this.Set(Mongo.DocumentIdKey, id);
+                }
+                
+                //return the id to use
+                return id;
+
+            }
             set {
+
+                //if trying to assign anything that isn't a MongoOid
+                //then complain about it
                 if (value != null && !(value is MongoOid)) {
                     throw new ArgumentException("You can only assign a MongoOid as the Id for a MongoDocument");
                 }
+
+                //update the value
                 this.Set<MongoOid>(Mongo.DocumentIdKey, value); 
+
             }
         }
 
@@ -129,6 +147,7 @@ namespace CSMongo {
             //get all of the ids to use
             IEnumerable<BsonFieldDetail> ids = fields.Where(item => item.Type is MongoOidType);
             list.RemoveAll(item => item.Type is MongoOidType);
+            list = list.OrderBy(item => item.Length).ToList();
 
             //because the items are shared in the same list
             //we have to insert these one at the time since
@@ -136,7 +155,6 @@ namespace CSMongo {
             //since the list is modified while enumerating
             //through the values. We're also going backwards
             //to make sure they retain their original order
-            list = list.OrderBy(item => item.Length).ToList();
             for (int index = ids.Count(); index-- > 0; ) {
                 list.Insert(0, ids.ElementAt(index));
             }
