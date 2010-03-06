@@ -92,8 +92,9 @@ namespace CSMongo {
         /// Creates an Oid for this document - MongoDB will 
         /// automatically create an Oid when needed
         /// </summary>
-        public void GenerateId() {
+        public MongoOid GenerateId() {
             this.Id = new MongoOid();
+            return this.Id;
         }
 
         #endregion
@@ -104,7 +105,7 @@ namespace CSMongo {
         /// The Oid for a document (if any)
         /// </summary>
         public MongoOid Id {
-            get { return this.Get<MongoOid>(Mongo.DocumentIdKey); }
+            get { return this.Get<MongoOid>(Mongo.DocumentIdKey, new MongoOid()); }
             set {
                 if (value != null && !(value is MongoOid)) {
                     throw new ArgumentException("You can only assign a MongoOid as the Id for a MongoDocument");
@@ -126,18 +127,16 @@ namespace CSMongo {
             List<BsonFieldDetail> list = fields.ToList();
 
             //get all of the ids to use
-            IEnumerable<BsonFieldDetail> ids = list.Where(item => item.Type is MongoOidType);
+            IEnumerable<BsonFieldDetail> ids = fields.Where(item => item.Type is MongoOidType);
             list.RemoveAll(item => item.Type is MongoOidType);
 
-            //reorder the document now so the Ids are in the front
-            list.OrderBy(item => item.Length);
-            
             //because the items are shared in the same list
             //we have to insert these one at the time since
             //if we use AddRange an exception will be thrown
             //since the list is modified while enumerating
             //through the values. We're also going backwards
             //to make sure they retain their original order
+            list = list.OrderBy(item => item.Length).ToList();
             for (int index = ids.Count(); index-- > 0; ) {
                 list.Insert(0, ids.ElementAt(index));
             }

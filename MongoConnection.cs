@@ -111,7 +111,6 @@ namespace CSMongo {
         /// </summary>
         public void Open() {
             if (this.Connected) { return; }
-            Console.WriteLine("opening...");
 
             //notify any event handlers this is opening
             if (this.BeforeConnectionOpened != null) { this.BeforeConnectionOpened(this); }
@@ -131,7 +130,6 @@ namespace CSMongo {
         /// Handles disconnecting from the client
         /// </summary>
         public void Close() {
-            Console.WriteLine("closing...");
 
             //notify any event handlers
             if (this.BeforeConnectionClosed != null) { this.BeforeConnectionClosed(this); }

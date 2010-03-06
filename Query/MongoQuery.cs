@@ -134,8 +134,27 @@ namespace CSMongo.Query {
         /// <summary>
         /// Finds a record based on the Oid value
         /// </summary>
+        public MongoQuery FindById(string id) {
+            return this.FindById(new MongoOid(id));
+        }
+
+        /// <summary>
+        /// Finds a record based on the Oid value
+        /// </summary>
+        public MongoQuery FindById(byte[] id) {
+            return this.FindById(new MongoOid(id));
+        }
+
+        /// <summary>
+        /// Finds a record based on the Oid value
+        /// </summary>
         public MongoQuery FindById(MongoOid id) {
+
+            //use 'in' to find the id - There is an
+            //actual option to use for this which
+            //will be converted to later on
             return this.In(Mongo.DocumentIdKey, new MongoOid[] { id });
+
         }
 
         /// <summary>

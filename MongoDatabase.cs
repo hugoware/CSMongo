@@ -171,14 +171,14 @@ namespace CSMongo {
         /// <summary>
         /// Starts a new query for a collection
         /// </summary>
-        public MongoQuery Find(string collection) {
+        public MongoQuery From(string collection) {
             return this.GetCollection(collection).Find();
         }
 
         /// <summary>
         /// Starts a new query for a collection
         /// </summary>
-        public TQueryProvider Find<TQueryProvider>(string collection) where TQueryProvider : MongoQueryBase {
+        public TQueryProvider From<TQueryProvider>(string collection) where TQueryProvider : MongoQueryBase {
             return this.GetCollection(collection).Find<TQueryProvider>();
         }
 

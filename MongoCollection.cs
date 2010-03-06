@@ -208,7 +208,7 @@ namespace CSMongo {
         //handles deleting records that need to be removed
         private void _PerformDeletes() {
             IEnumerable<MongoOid> ids = this._Deletes.Select(item => item.Id);
-            this.Database.Find(this.Name).In("_id", ids).Delete();
+            this.Database.From(this.Name).In("_id", ids).Delete();
         }
 
         #endregion

@@ -6,6 +6,10 @@ using CSMongo.IO;
 using CSMongo.Exceptions;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Net;
+using System.Diagnostics;
 
 namespace CSMongo {
 
@@ -29,15 +33,14 @@ namespace CSMongo {
         /// Creates a new Oid and generates an Oid automatically
         /// </summary>
         public MongoOid() {
+            this.Value = MongoOid.Generate();
+        }
 
-            //generate a unique id
-            DynamicStream stream = new DynamicStream();
-            stream.Append(BitConverter.GetBytes(DateTime.Now.Ticks));
-            stream.Append(BitConverter.GetBytes(MongoOid._GetIdentifier()));
-
-            //build the new Oid
-            this.Value = stream.ToArray();
-
+        /// <summary>
+        /// Creates an ID using a string version of the Oid
+        /// </summary>
+        public MongoOid(string id) {
+            this.SetId(id);
         }
 
         /// <summary>
@@ -95,8 +98,8 @@ namespace CSMongo {
 
             //parse every pair of bytes
             List<byte> bytes = new List<byte>();
-            for (int i = 0; i < value.Length / 2; i++) {
-                string pair = value.Substring((i * 2), 2);
+            for (int i = 0; i < value.Length; i += 2) {
+                string pair = value.Substring(i, 2);
                 byte parsed = byte.Parse(pair, NumberStyles.HexNumber);
                 bytes.Add(parsed);
             }
@@ -124,6 +127,28 @@ namespace CSMongo {
         /// </summary>
         public override string ToString() {
             return string.Format("Oid:{0}", this.GetId());
+        }
+
+        #endregion
+
+        #region Static Creation
+
+        /// <summary>
+        /// Generates the bytes for a new MongoOid
+        /// </summary>
+        public static byte[] Generate() {
+            List<byte> bytes = new List<byte>();
+
+            //generate the correct prefix (Suggestion from Sam Corder)
+            double span = (DateTime.UtcNow - Mongo.Epoch).TotalSeconds;
+            int floor = Convert.ToInt32(Math.Floor(span));
+            bytes.AddRange(BitConverter.GetBytes(floor).Reverse());
+
+            //use a semi-unique value - Not sure if this
+            //is supposed to be any paticular format
+            bytes.AddRange(Guid.NewGuid().ToByteArray().Skip(8));
+            return bytes.ToArray();
+
         }
 
         #endregion
