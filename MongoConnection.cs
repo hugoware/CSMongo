@@ -154,7 +154,7 @@ namespace CSMongo {
             if (this.AutoConnect) { this.Open(); }
 
             //attempt to perform the request
-            //try {
+            try {
 
                 //perform normal checking
                 if (!this.Connected) {
@@ -172,19 +172,19 @@ namespace CSMongo {
                 //next, read for the response
                 return request.OnResponse(this._Buffer);
 
-            //}
-            ////forward the exception onto the caller
-            //catch (Exception up) {
+            }
+            //forward the exception onto the caller
+            catch (Exception up) {
 
-            //    //attempt to kill the connection
-            //    try {
-            //        this.Dispose();
-            //    }
-            //    catch { }
+                //attempt to kill the connection
+                //ignore any problems since we are
+                //already forwarding an exception
+                try { this.Dispose(); }
+                catch { }
 
-            //    //and then forward the error for handling
-            //    throw up;
-            //}
+                //and then forward the error for handling
+                throw up;
+            }
             
 
         }

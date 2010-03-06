@@ -89,9 +89,6 @@ namespace CSMongo.Requests {
             //finally, remember to update the length
             stream.WriteAt(POSITION_REQUEST_LENGTH, BitConverter.GetBytes(stream.Length));
 
-
-            Helpers.ExportBytes(stream.ToArray(), "d:\\output\\second.txt");
-
             //cache this value to use it later
             this._Output = stream;
 
