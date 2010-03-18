@@ -27,7 +27,17 @@ namespace CSMongo.Extensions.Queries {
                 yield return document.Get(start, template);
             }
         }
-    
+
+        /// <summary>
+        /// Selects information from the document in a specific format
+        /// </summary>
+        public static IEnumerable<MongoDocument> Apply(this IEnumerable<MongoDocument> documents, object parameters) {
+            foreach(MongoDocument document in documents) {
+                document.Merge(parameters);
+                yield return document;
+            }
+        }
+
     }
 
 }
