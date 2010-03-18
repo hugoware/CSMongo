@@ -22,7 +22,6 @@ namespace CSMongo.Bson {
         /// Handles reading a type from a stream
         /// </summary>
         public static Dictionary<string, object> FromStream(Stream stream) {
-            BinaryReader reader = new BinaryReader(stream);
 
             //start reading out the values
             Dictionary<string, object> values = new Dictionary<string, object>();
@@ -245,7 +244,10 @@ namespace CSMongo.Bson {
 
             //get the length and flag
             int length = reader.ReadInt32();
-            MongoBinaryTypes type = (MongoBinaryTypes)reader.ReadByte();
+            
+            //read the type identifier (we don't need to use it)
+            //MongoBinaryTypes type = (MongoBinaryTypes)reader.ReadByte();
+            reader.ReadByte();
 
             //then read the binary object (take in account the starting info)
             return reader.ReadBytes(length);
@@ -327,9 +329,11 @@ namespace CSMongo.Bson {
         public static string ReadCString(Stream stream) {
             BinaryReader reader = new BinaryReader(stream);
 
-            //get the length to expect - remove 4 bytes
-            //from the count to read to account length value
-            int length = reader.ReadInt32();
+            //get the 'length' value - Since we are currently
+            //reading CStrings like normal strings we don't
+            //actually need to use this value
+            //int length = reader.ReadInt32();
+            reader.ReadInt32();
 
             //just use the typical string reading for now. 
             //not sure if this needs to be something special
