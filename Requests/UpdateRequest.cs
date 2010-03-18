@@ -58,10 +58,13 @@ namespace CSMongo.Requests {
             stream.Append(BsonTranslator.AsString(this.GetDatabaseTarget()));
 
             //generate the options and write them
-            //BitVector32 options = new BitVector32(0);
-            //options[0] = this.Options.Has(UpdateOptionTypes.Upsert);
-            //options[1] = this.Options.Has(UpdateOptionTypes.MultiUpdate);
-            stream.Append(BsonTranslator.AsInt32((int)this.Options));
+            BitVector32 options = new BitVector32(0);
+            options[1] = this.Options.Has(UpdateOptionTypes.Upsert);
+            options[2] = this.Options.Has(UpdateOptionTypes.MultiUpdate);
+            stream.Append(BsonTranslator.AsInt32(options.Data));
+
+            //not sure what the right way to do this is...
+            //stream.Append(BsonTranslator.AsInt32((int)this.Options));
 
             //then the actual selection
             stream.Append(this.Parameters.ToBsonByteArray());
