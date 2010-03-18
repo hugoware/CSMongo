@@ -11,6 +11,11 @@ namespace CSMongo.Types {
     public enum UpdateOptionTypes : int {
 
         /// <summary>
+        /// Nothing special is required for this update
+        /// </summary>
+        None = 0,
+
+        /// <summary>
         /// If no matching records are found the record will be inserted
         /// </summary>
         Upsert = 1,
