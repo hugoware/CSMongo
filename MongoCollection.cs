@@ -184,10 +184,20 @@ namespace CSMongo {
 
                 //if this hasn't changed then skip it
                 if (item.Key.Equals(item.Value.GetObjectHash())) { continue; }
-                Console.WriteLine("Updating " + item.Value.Get<string>("name"));
 
-                this.Find().FindById(item.Value.Id).Set(item.Value);
-                this.Find().FindById(item.Value.Id).Unset(item.Value.GetRemovedFields().ToArray());
+                //create a bson document of the update to create
+                BsonDocument update = new BsonDocument();
+                update.Merge(item.Value);
+                update.Remove(Mongo.DocumentIdKey);
+
+                //start with the update
+                this.Find().FindById(item.Value.Id).Set(update);
+
+                //check for anything removed
+                IEnumerable<string> removed = item.Value.GetRemovedFields();
+                if (removed.Count() > 0) {
+                    this.Find().FindById(item.Value.Id).Unset(removed.ToArray());
+                }
 
                 //Might want to try and merge this into the same
                 //request to avoid two trips to the database -- But
