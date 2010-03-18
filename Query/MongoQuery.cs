@@ -49,7 +49,7 @@ namespace CSMongo.Query {
         /// <summary>
         /// Allows you to append a query option using the Mongo syntax 
         /// </summary>
-        public MongoQuery Append(string field, string modifier, object value) {
+        public MongoQuery AppendParameter(string field, string modifier, object value) {
 
             //make sure there is a field available
             if (!(this._Parameters[field] is BsonDocument)) {
@@ -99,7 +99,7 @@ namespace CSMongo.Query {
         /// Finds all records that match the provided expression
         /// </summary>
         public MongoQuery Match(string field, Regex expression) {
-            return this.Append(field, null, expression);
+            return this.AppendParameter(field, null, expression);
         }
 
         /// <summary>
@@ -127,7 +127,7 @@ namespace CSMongo.Query {
             }
 
             //otherwise, just do the default step
-            return this.Append(field, null, value);
+            return this.AppendParameter(field, null, value);
 
         }
 
@@ -161,49 +161,49 @@ namespace CSMongo.Query {
         /// Finds all records that are not equal to the value provided
         /// </summary>
         public MongoQuery NotEqualTo(string field, object value) {
-            return this.Append(field, "$ne", value);
+            return this.AppendParameter(field, "$ne", value);
         }
 
         /// <summary>
         /// Finds all records greater than or equal to the provided value
         /// </summary>
         public MongoQuery GreaterOrEqual(string field, object value) {
-            return this.Append(field, "$gte", value);
+            return this.AppendParameter(field, "$gte", value);
         }
 
         /// <summary>
         /// Finds all records greater than the provided value
         /// </summary>
         public MongoQuery Greater(string field, object value) {
-            return this.Append(field, "$gt", value);
+            return this.AppendParameter(field, "$gt", value);
         }
 
         /// <summary>
         /// Finds all records less than or equal to the provided value
         /// </summary>
         public MongoQuery LessOrEqual(string field, object value) {
-            return this.Append(field, "$lte", value);
+            return this.AppendParameter(field, "$lte", value);
         }
 
         /// <summary>
         /// Finds all records less than the provided value
         /// </summary>
         public MongoQuery Less(string field, object value) {
-            return this.Append(field, "$lt", value);
+            return this.AppendParameter(field, "$lt", value);
         }
 
         /// <summary>
         /// Finds records that the requested field exists in
         /// </summary>
         public MongoQuery Exists(string field) {
-            return this.Append(field, "$exists", true);
+            return this.AppendParameter(field, "$exists", true);
         }
 
         /// <summary>
         /// Finds records that the requested field does not exist in
         /// </summary>
         public MongoQuery NotExists(string field) {
-            return this.Append(field, "$exists", false);
+            return this.AppendParameter(field, "$exists", false);
         }
 
         /// <summary>
@@ -217,7 +217,7 @@ namespace CSMongo.Query {
         /// Finds fields that match any value within the record
         /// </summary>
         public MongoQuery In(string field, params object[] values) {
-            return this.Append(field, "$in", values);
+            return this.AppendParameter(field, "$in", values);
         }
 
         /// <summary>
@@ -231,14 +231,14 @@ namespace CSMongo.Query {
         /// Finds fields that haven't any matches within the array
         /// </summary>
         public MongoQuery NotIn(string field, params object[] values) {
-            return this.Append(field, "$nin", values);
+            return this.AppendParameter(field, "$nin", values);
         }
 
         /// <summary>
         /// Finds fields that match all value within the record
         /// </summary>
         public MongoQuery Size(string field, int size) {
-            return this.Append(field, "$size", size);
+            return this.AppendParameter(field, "$size", size);
         }
 
         /// <summary>
@@ -252,7 +252,7 @@ namespace CSMongo.Query {
         /// Finds fields that match all value within the record
         /// </summary>
         public MongoQuery All(string field, params object[] values) {
-            return this.Append(field, "$all", values);
+            return this.AppendParameter(field, "$all", values);
         }
 
         /// <summary>
@@ -266,7 +266,7 @@ namespace CSMongo.Query {
         /// Performs a modulo comparison (field % value == compare)
         /// </summary>
         public MongoQuery Mod(string field, int value, int compare) {
-            return this.Append(field, "$mod", new int[] { value, compare});
+            return this.AppendParameter(field, "$mod", new int[] { value, compare});
         }
 
         #endregion
