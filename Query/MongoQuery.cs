@@ -51,18 +51,15 @@ namespace CSMongo.Query {
         /// </summary>
         public MongoQuery AppendParameter(string field, string modifier, object value) {
 
-            //make sure there is a field available
-            if (!(this._Parameters[field] is BsonDocument)) {
-                this._Parameters[field] = new BsonDocument();
+            //if using a modifier, set this as a document
+            if (modifier is string) {
+                BsonDocument parameters = new BsonDocument();
+                parameters[modifier] = value;
+                this._Parameters[field] = parameters;
             }
-
-            //if there isn't a modifier, just set it as the value
-            if (modifier == null) {
-                this._Parameters[field] = value;
-            }
-            //otherwise, set the modifier key and value inside of the document
+            //otherwise, just assign the value
             else {
-                (this._Parameters[field] as BsonDocument)[modifier] = value;
+                this._Parameters[field] = value;
             }
 
             //return the query to use
